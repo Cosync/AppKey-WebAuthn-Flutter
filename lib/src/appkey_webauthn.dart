@@ -35,7 +35,7 @@ import 'package:credential_manager/credential_manager.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-/// Checks if you are awesome. Spoiler: you are.
+
 class AppkeyWebAuthn {
    
 
@@ -83,8 +83,7 @@ class AppkeyWebAuthn {
   }
 
   Future<AppModel> getApp() async {
-    final response =
-        await _apiRequest("GET", "api/appuser/app");
+    final response = await _apiRequest("GET", "api/appuser/app");
     final decode = jsonDecode(response.body);
     return AppModel.fromJson(decode);
   }
@@ -112,15 +111,12 @@ class AppkeyWebAuthn {
     return decode;
   }
 
-  Future<UserModel> signupComplete(String code, String signupToken) async {
-    try {
-      final response = await _apiRequest("POST", "api/appuser/signupComplete",
-          {"code": code}, null, signupToken);
-      final decode = jsonDecode(response.body);
-      return UserModel.fromJson(decode);
-    } catch (e) {
-      throw Exception(e);
-    }
+  Future<UserModel> signupComplete(String code, String signupToken) async { 
+    final response = await _apiRequest("POST", "api/appuser/signupComplete",
+        {"code": code}, null, signupToken);
+    final decode = jsonDecode(response.body);
+    user = UserModel.fromJson(decode);
+    return user!; 
   }
 
   // Initialize passkey login
@@ -146,7 +142,8 @@ class AppkeyWebAuthn {
         "POST", "api/appuser/loginComplete", body);
 
     final decode = jsonDecode(response.body);
-    return UserModel.fromJson(decode);
+    user = UserModel.fromJson(decode);
+    return user!;
   }
 
   Future<CredentialCreationOptions> loginAnonymous(handle) async {
@@ -157,7 +154,7 @@ class AppkeyWebAuthn {
     return CredentialCreationOptions.fromJson(decode);
   }
 
-  Future<Map<String, dynamic>> loginAnonymousComplete(
+  Future<UserModel> loginAnonymousComplete(
       String handle, PublicKeyCredential request) async {
     Map<String, dynamic> body = {
       'handle': handle,
@@ -169,7 +166,8 @@ class AppkeyWebAuthn {
         "POST", "api/appuser/loginAnonymousComplete", body);
     final decode = jsonDecode(response.body);
 
-    return decode;
+    user = UserModel.fromJson(decode);
+    return user!;
   }
 
   Future<bool> setUserName(String userName, String accessToken) async {
@@ -192,7 +190,8 @@ class AppkeyWebAuthn {
     final response = await _apiRequest(
         "POST", "api/appuser/setLocale", {"locale": locale}, accessToken);
     final decode = jsonDecode(response.body);
-    return UserModel.fromJson(decode);
+    user = UserModel.fromJson(decode);
+    return user!;
   }
 
   Future<Map<String, dynamic>> userNameAvailable(
@@ -206,27 +205,29 @@ class AppkeyWebAuthn {
     return jsonDecode(response.body);
   }
 
-  Future<Map<String, dynamic>> socialLogin(Map<String, dynamic> data) async {
+  Future<UserModel> socialLogin(Map<String, dynamic> data) async {
     final response =
         await _apiRequest("POST", "api/appuser/socialLogin", data);
     final decode = jsonDecode(response.body);
-    return decode;
+    user = UserModel.fromJson(decode);
+    return user!;
   }
 
-  Future<Map<String, dynamic>> socialSignup(Map<String, dynamic> data) async {
+  Future<UserModel> socialSignup(Map<String, dynamic> data) async {
     final response =
         await _apiRequest("POST", "api/appuser/socialSignup", data);
     final decode = jsonDecode(response.body);
-    return decode;
+    user = UserModel.fromJson(decode);
+    return user!;
   }
 
-  Future<Map<String, dynamic>> verifySocialAccount(
+  Future<UserModel> verifySocialAccount(
       Map<String, dynamic> data) async {
     final response = await _apiRequest(
         "POST", "api/appuser/verifySocialAccount", data);
-    final decode = jsonDecode(response.body);
-
-    return decode;
+    final decode = jsonDecode(response.body); 
+    user = UserModel.fromJson(decode);
+    return user!;
   }
 
   // Initialize passkey login
@@ -249,7 +250,8 @@ class AppkeyWebAuthn {
     final response = await _apiRequest(
         "POST", "api/appuser/verifyComplete", body);
     final decode = jsonDecode(response.body);
-    return UserModel.fromJson(decode);
+    user = UserModel.fromJson(decode);
+    return user!;
   }
 
   Future<UserModel> updatePasskey(
@@ -257,8 +259,9 @@ class AppkeyWebAuthn {
     final response = await _apiRequest("POST", "api/appuser/updatePasskey",
         {"keyId": id, "keyName": keyName}, accessToken);
 
-    final json = jsonDecode(response.body);
-    return UserModel.fromJson(json);
+    final decode = jsonDecode(response.body);
+    user = UserModel.fromJson(decode);
+    return user!;
   }
 
   Future<CredentialCreationOptions> addPasskey(String token) async {
@@ -280,13 +283,15 @@ class AppkeyWebAuthn {
     final response = await _apiRequest(
         "POST", "api/appuser/addPasskeyComplete", body, token);
     final decode = jsonDecode(response.body);
-    return UserModel.fromJson(decode);
+    user = UserModel.fromJson(decode);
+    return user!;
   }
 
   Future<UserModel> removePasskey(String keyId, String token) async {
     final response = await _apiRequest(
         "POST", "api/appuser/removePasskey", {"keyId": keyId}, token);
     final decode = jsonDecode(response.body);
-    return UserModel.fromJson(decode);
+    user = UserModel.fromJson(decode);
+    return user!;
   }
 }
