@@ -1,7 +1,7 @@
 name: appkey_webauthn_flutter
-description: A starting point for Dart libraries or applications.
+description: Ready to simplify authentication and secure your app? AppKey is the cloud-based solution that makes implementing FIDO2 Passkeys a breeze. With support for platforms like Swift (iOS), Kotlin (Android), React Native (CLI and Expo), React, Flutter, and Angular, you can integrate passkeys into your mobile or web app in just hours—not months.
 version: 1.0.0
-# repository: https://github.com/my_org/my_repo
+repository: https://github.com/Cosync/AppKey-WebAuthn-Flutter
 
 environment:
   sdk: ^3.6.2
