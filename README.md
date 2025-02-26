@@ -115,7 +115,7 @@ The *signup()* function is responsible for registering a new user handle (email 
  
 
 ```
-    await appKeyAuth.signup(handle, displayName, locale)
+    await appKeyAuth.signup(String handle, String displayName, String? locale)
 ```
 
 If an error occurs in the call to the function, a AppkeyError exceptions will be thrown.
@@ -158,6 +158,7 @@ If an error occurs in the call to the function, a error exceptions will be throw
 
 **publicKeyCredential** : Attestation - this contains the user's attestation object
 ``` 
+
 PublicKeyCredential Object Properties: 
     {
 
