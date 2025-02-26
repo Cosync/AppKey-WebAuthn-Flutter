@@ -8,7 +8,7 @@ The AppKey-Flutter Flutter package is used to add functional bindings between a 
 
 1. Open terminal and go to root project folder where pubspec.yaml is
 
-2. flutter pub add appkey_webauthn_flutter
+2. run "flutter pub add appkey_webauthn_flutter"
 
 
 ## configure
@@ -93,11 +93,11 @@ None
 ```
     try {
 	    final application = await appKeyAuth.getApp();
-
+        print(application);
     } on AppkeyError catch (error) {  
-        print(" AppkeyError  $error.message ") 
+        print(" AppkeyError  $error.message ");
     } catch (e) {
-        print(" error $e") 
+        print(" error $e");
     }
 ```
  
@@ -237,7 +237,7 @@ If an error occurs in the call to the function, an error exceptions will be thro
 ### Parameters 
 
 **code** : String - six-digit code sent to user's handle
-
+**signupToken** : String - returned by the called to the *signupConfirm()* function.
 ### Return
     UserModel()
 
@@ -279,7 +279,7 @@ The *login()* function is used to login into a user's account. The login process
 The *login()* function initiates the passkey login process for a user handle (email or phone) that has already been registered with the application. The handle must correspond to a user that’s signed up and stored on the server. This function returns an *Login Challenge* object, which includes a challenge that the client must sign using the private key stored in the device’s keychain. This step ensures the user’s identity is verified securely.
 
 ```
-    await appKeyAuth.login(handle) 
+    await appKeyAuth.login(String handle) 
 	
 ```
 
@@ -402,7 +402,7 @@ If the *loginAnonymousComplete()* is successful it will return UserModel to the 
  
 
 ```
-    await appKeyAuth.loginAnonymousComplete(handle, publicKeyCredential)  
+    await appKeyAuth.loginAnonymousComplete(String handle, PublicKeyCredential publicKeyCredential)  
 ```
 If an error occurs in the call to the function, an error exception will be thrown.
 
@@ -436,7 +436,7 @@ To use the socialLogin feature, first make sure to enable and configure it in yo
 * **accessToken**: the access token of the logged in user
 
 ```
-    await appKeyAuth.socialLogin(token: String, provider: String)
+    await appKeyAuth.socialLogin(String token, String provider)
 ```
 
 If an error occurs in the call to the function, a CosyncAuthError exceptions will be thrown.
@@ -490,13 +490,13 @@ An object contains:
 
 **handle** : String - this contains the user's email (Apple Id or Google account)  
 
-**locale** : String - 2 letter **locale** for the user
+**locale** : String - (optional) 2 letter **locale** for the user
 
 
 ### Example
 
 ```
-    await socialSignup(token: String, provider: String, handle:String, locale:String)
+    await socialSignup(String token, String provider, String handle, String? locale)
 ```
  
 ## verify
@@ -509,7 +509,7 @@ The *verify()* function is used to verify a user's account using a saved passkey
 The *verify()* function initiates the passkey verification process for a user handle (email or phone) that has already been registered with the application. The handle must correspond to a user that’s signed up and stored on the server. This function returns an *LoginChallenge* object, which includes a challenge that the client must sign using the private key stored in the device’s keychain. This step ensures the user’s identity is verified securely.
 
 ```
-await appKeyAuth.verify(handle)  
+await appKeyAuth.verify(String handle)  
      
 ```
 
@@ -609,7 +609,7 @@ The *setUserName()* function is used by the client application to set the user n
 User names must consist of alphanumeric characters - starting with a letter. They are not case sensitive
 
 ```
-    await appKeyAuth.setUserName(userName)
+    await appKeyAuth.setUserName(String userName)
     
 ```
 If an error occurs in the call to the function, an error exception will be thrown.
@@ -637,7 +637,7 @@ The *userNameAvailable()* function is used by the client application whether a u
 User names must consist of alphanumeric characters - starting with a letter. They are not case sensitive
 
 ```
-    await appKeyAuth.userNameAvailable({userName:'appuserdemo'})
+    await appKeyAuth.userNameAvailable(String userName)
     
 ```
 This fuction returns **true** if user name is available, **false** otherwise. 
