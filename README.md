@@ -185,7 +185,7 @@ Response Object Properties:
 ```
 
 To create attestation object please see a CredentialManager Library at https://pub.dev/packages/credential_manager
-or see our demo react website and react app projects code at https://github.com/Cosync/AppKey-WebReactDemo, https://github.com/Cosync/AppKey-ReactNativeDemo, https://github.com/Cosync/AppKey-ReactExpoDemo
+or see our demo Flutter app at: https://github.com/Cosync/AppKey-FlutterDemo
 
 
 ### Return
@@ -240,6 +240,22 @@ If an error occurs in the call to the function, an error exceptions will be thro
 
 ### Return
     UserModel()
+
+
+    The UserModel object contains the following fields
+
+    * **appUserId** : String - unique 128 bit user id
+    * **displayName** : String - user display name
+    * **handle** : String - user handle (email or phone)
+    * **status** : String - user status 'pending', 'active', 'suspended'
+    * **appId** : String - unique 128 bit application id
+    * **accessToken** : String? - JWT REST access token for logged in user
+    * **jwt** : String? - JWT login token
+    * **userName** : String? - unique user name (alphanumeric)
+    * **locale** : String? - current user locale
+    * **loginProvider** :  String - login type
+    * **authenticators** :  Object - list of passkey authenticator
+    * **lastLogin** :  String? - date stamp of last login
 
 ### Example
 
@@ -297,20 +313,6 @@ If the *loginComplete()* is successful it will return UserModel to the caller.
 * **user** : Object - UserModel
 
 
-The UserModel object contains the following fields
-
-* **appUserId** : String - unique 128 bit user id
-* **displayName** : String - user display name
-* **handle** : String - user handle (email or phone)
-* **status** : String - user status 'pending', 'active', 'suspended'
-* **appId** : String - unique 128 bit application id
-* **accessToken** : String? - JWT REST access token for logged in user
-* **signUpToken** : String? - JWT REST sign up token
-* **jwt** : String? - JWT login token
-* **userName** : String? - unique user name (alphanumeric)
-* **locale** : String? - current user locale
-* **loginProvider** :  String - login type
-* **lastLogin** :  String? - date stamp of last login
 
 ```
 	await appKeyAuth.loginComplete(String handle, PublicKeyCredential assertion)
@@ -340,7 +342,7 @@ If an error occurs in the call to the function, an error exception will be throw
     }
 
 ```
-To create assertion object please see a Credential Manager Library at https://pub.dev/packages/credential_manager or see our demo react website and react app projects code at https://github.com/Cosync/AppKey-WebReactDemo, https://github.com/Cosync/AppKey-ReactNativeDemo, https://github.com/Cosync/AppKey-ReactExpoDemo
+To create assertion object please see a Credential Manager Library at https://pub.dev/packages/credential_manager or see our demo Flutter App at: https://github.com/Cosync/AppKey-FlutterDemo
 
 ### Example
 
@@ -397,24 +399,7 @@ The *loginAnonymousComplete()* function is the second step in registering an ano
 
 
 If the *loginAnonymousComplete()* is successful it will return UserModel to the caller.
-
-* **appUser** : AppUser - application user object
-* **accessToken** : String? - JWT REST access token for logged in user
-* **jwt** : String? - JWT login token
-
-The AppUser object contains the following fields
-
-* **appUserId** : String - unique 128 bit user id
-* **displayName** : String - user display name
-* **handle** : String - user handle (email or phone)
-* **status** : String - user status 'pending', 'active', 'suspended'
-* **appId** : String - unique 128 bit application id
-* **accessToken** : String? - JWT REST access token for logged in user
-* **signUpToken** : String? - JWT REST sign up token
-* **jwt** : String? - JWT login token
-* **userName** : String? - unique user name (alphanumeric)
-* **locale** : String? - current user locale
-* **lastLogin** :  String? - date stamp of last login
+ 
 
 ```
     await appKeyAuth.loginAnonymousComplete(handle, publicKeyCredential)  
@@ -445,9 +430,7 @@ The *sociallogin()* function is used to login into a user's account using a soci
 
 To use the socialLogin feature, first make sure to enable and configure it in your AppKey application at appkey.io for Apple and/or Google. Next, incorporate any Apple and/or Google social login library into your project; refer to our demo projects for guidance on implementing this social login feature at:
 
-1. https://github.com/Cosync/AppKey-WebReactDemo
-2. https://github.com/Cosync/AppKey-ReactNativeDemo
-3. https://github.com/Cosync/AppKey-ReactExpoDemo
+1. https://github.com/Cosync/AppKey-FlutterDemo
 
 * **jwt**: the JWT token of the logged in user
 * **accessToken**: the access token of the logged in user
